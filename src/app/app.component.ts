@@ -1,12 +1,24 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, AfterViewInit } from '@angular/core';
+import gsap from 'gsap'; 
+import { LocomotiveScrollService } from './shared/services/locomotive.service';
 
 @Component({
+  standalone: true,
   selector: 'app-root',
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'facebook';
+export class AppComponent implements AfterViewInit {
+  constructor(private scrollService:LocomotiveScrollService ) {}
+
+  ngAfterViewInit() {
+    this.scrollService.initScroll();
+
+    gsap.from('.fade-in', {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      delay: 0.5,
+    });
+  }
 }
